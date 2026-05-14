@@ -106,23 +106,14 @@ class DrawResultResource extends Resource
                                 }
                             })
                             ->helperText(fn($state) => (is_numeric($state) && $state >= 1 && $state <= 49)
-                                ? '🔮 ' . \App\Helpers\LotteryHelper::getLabel((int)$state)
-                                : '')
+                                ? \App\Helpers\LotteryHelper::getLabel((int)$state)
+                                : '输入 1-49')
                             ->columnSpan(1),
-                        Select::make('color')
-                            ->label('颜色')
-                            ->options(['red'=>'红色','blue'=>'蓝色','green'=>'绿色'])
-                            ->required()
-                            ->default('blue')
-                            ->columnSpan(1),
-                        TextInput::make('label')
-                            ->label('下方标签（可选）')
-                            ->maxLength(20)
-                            ->columnSpan(1),
-                        Hidden::make('sort_order')
-                            ->default(0),
+                        Hidden::make('color')->default('blue'),
+                        Hidden::make('label')->default(''),
+                        Hidden::make('sort_order')->default(0),
                     ])
-                    ->columns(3)
+                    ->columns(1)
                     ->addActionLabel('+ 添加号码')
                     ->reorderable('sort_order')
                     ->collapsible()
@@ -134,17 +125,18 @@ class DrawResultResource extends Resource
                     ->label('特别号码')
                     ->maxLength(4)
                     ->live()
+                    ->afterStateUpdated(function ($state, \Filament\Schemas\Components\Utilities\Set $set) {
+                        if (is_numeric($state) && $state >= 1 && $state <= 49) {
+                            $set('special_color', \App\Helpers\LotteryHelper::getColor((int)$state));
+                        }
+                    })
                     ->helperText(fn($state) => (is_numeric($state) && $state >= 1 && $state <= 49)
-                        ? '🔮 ' . \App\Helpers\LotteryHelper::getLabel((int)$state)
-                        : ''),
-                Select::make('special_color')
-                    ->label('特别号码颜色')
-                    ->options(['red'=>'红色','blue'=>'蓝色','green'=>'绿色'])
-                    ->default('red'),
-                TextInput::make('special_label')
-                    ->label('特别号码下方标签（可选）')
-                    ->maxLength(20),
-            ])->columns(3),
+                        ? \App\Helpers\LotteryHelper::getLabel((int)$state)
+                        : '输入 1-49')
+                    ->columnSpan(1),
+                Hidden::make('special_color')->default('red'),
+                Hidden::make('special_label')->default(''),
+            ])->columns(1),
 
             Section::make('开奖视频')->schema([
                 FileUpload::make('video_file')
