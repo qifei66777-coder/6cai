@@ -19,7 +19,7 @@
 
 @once
 <style>
-.rb{width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#fff;letter-spacing:-.5px;position:relative;flex-shrink:0;overflow:hidden;transition:transform .12s;}
+.rb{width:clamp(32px,10vw,48px);height:clamp(32px,10vw,48px);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:clamp(12px,3.6vw,17px);color:#fff;letter-spacing:-.5px;position:relative;flex-shrink:0;overflow:hidden;transition:transform .12s;}
 .rb:active{transform:scale(.9);}
 .rb span{position:relative;z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.35);}
 .rb::before{content:'';position:absolute;top:7%;left:7%;width:50%;height:42%;background:radial-gradient(ellipse at 38% 38%,rgba(255,255,255,.9) 0%,rgba(255,255,255,.5) 42%,rgba(255,255,255,0) 100%);border-radius:50%;transform:rotate(-22deg);z-index:1;pointer-events:none;}
@@ -28,15 +28,15 @@
 .ball-green{background:radial-gradient(circle at 38% 35%,#70E098 0%,#25B358 42%,#0D7A30 100%);box-shadow:0 4px 14px rgba(37,179,88,.55), 0 1px 3px rgba(0,0,0,.2);}
 .ball-red  {background:radial-gradient(circle at 38% 35%,#FF8888 0%,#E53030 42%,#B80E0E 100%);box-shadow:0 4px 14px rgba(229,48,48,.55),  0 1px 3px rgba(0,0,0,.2);}
 .ball-gray {background:radial-gradient(circle at 38% 35%,#D0D8DE 0%,#8E98A2 42%,#4A5460 100%);box-shadow:0 4px 10px rgba(74,84,96,.4),    0 1px 3px rgba(0,0,0,.2);}
-.ball-special{width:42px;height:42px;font-size:15px;outline:2px solid rgba(255,255,255,.45);outline-offset:2px;}
+.ball-special{width:clamp(32px,10vw,48px);height:clamp(32px,10vw,48px);font-size:clamp(12px,3.6vw,17px);outline:2px solid rgba(255,255,255,.45);outline-offset:2px;}
 .ball-pending{background:radial-gradient(circle at 38% 35%,#4a1010 0%,#2a0808 42%,#180303 100%);animation:rb-idle 2s ease-in-out infinite;}
 .ball-drawing{background:radial-gradient(circle at 38% 35%,#FFD080 0%,#FFA020 42%,#E07000 100%);animation:rb-glow 1.2s ease-in-out infinite;}
 @keyframes rb-idle{0%,100%{opacity:.6;transform:scale(1);}50%{opacity:.3;transform:scale(.9);}}
 @keyframes rb-glow{0%,100%{box-shadow:0 4px 10px rgba(224,112,0,.4);}50%{box-shadow:0 4px 28px rgba(255,160,32,.85);}}
-.balls-row{display:flex;align-items:flex-end;justify-content:center;gap:3px;flex-wrap:nowrap;padding:0 2px;}
-.ball-col{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.ball-plus{font-size:15px;font-weight:900;color:rgba(251,191,36,.5);flex-shrink:0;line-height:1;margin-bottom:18px;}
-.ball-label{font-size:9px;color:rgba(255,255,255,.65);text-align:center;line-height:1.2;white-space:nowrap;font-weight:500;}
+.balls-row{display:flex;align-items:flex-end;justify-content:center;gap:clamp(2px,.8vw,5px);flex-wrap:nowrap;padding:0 2px;}
+.ball-col{display:flex;flex-direction:column;align-items:center;gap:clamp(3px,1vw,5px);min-width:0;}
+.ball-plus{font-size:clamp(13px,3.5vw,17px);font-weight:900;color:rgba(251,191,36,.5);flex-shrink:0;line-height:1;margin-bottom:clamp(14px,4.5vw,22px);}
+.ball-label{font-size:clamp(8px,2.3vw,10px);color:rgba(255,255,255,.65);text-align:center;line-height:1.2;white-space:nowrap;font-weight:500;}
 .ball-label-special{color:rgba(255,210,80,.9);font-weight:700;}
 .countdown-box{background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25);border-radius:12px;padding:10px 14px;text-align:center;}
 .countdown-labels{display:flex;justify-content:center;gap:4px;margin-top:3px;}
@@ -96,7 +96,7 @@
     </div>
 
     {{-- 球区 --}}
-    <div style="padding:18px 12px;background:linear-gradient(160deg,#0d0000,#060000);">
+    <div style="padding:16px 6px;background:linear-gradient(160deg,#0d0000,#060000);">
         @if($isCompleted || ($isDrawing && $draw->drawNumbers->count() > 0))
             <div class="balls-row">
                 @foreach($draw->drawNumbers as $num)
