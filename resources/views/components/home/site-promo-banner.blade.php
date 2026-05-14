@@ -16,9 +16,9 @@
 {{-- 变体2：橙红渐变 + 光晕 + 三优势 --}}
 <div class="mx-3 my-4 rounded-2xl overflow-hidden relative"
      style="height:100px;
-            background:linear-gradient(135deg,#450a0a 0%,#7f1d1d 30%,#9a3412 65%,#7c2d12 100%);
+            background:linear-gradient(135deg,#5a3a3a 0%,#8a4040 30%,#9a5828 65%,#7c4838 100%);
             background-size:200% 200%;animation:pb-gradshift 5s ease infinite;
-            border:1px solid rgba(251,191,36,.2);">
+            border:1px solid rgba(251,191,36,.18);">
     <div style="position:absolute;top:0;bottom:0;width:70px;pointer-events:none;
                 background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
                 animation:pb-shimmer 3.5s ease-in-out infinite;"></div>
@@ -45,8 +45,8 @@
 @elseif($v === 3)
 {{-- 变体3：黑红底 + 域名金字发光 --}}
 <div class="mx-3 my-4 rounded-2xl overflow-hidden relative"
-     style="height:90px;background:linear-gradient(135deg,#0d0000,#1a0500,#0d0000);
-            border:1px solid rgba(251,191,36,.25);animation:pb-border-red 3s ease-in-out infinite;">
+     style="height:90px;background:linear-gradient(135deg,#241a1c,#2c2123,#241a1c);
+            border:1px solid rgba(251,191,36,.22);animation:pb-border-red 3s ease-in-out infinite;">
     <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#fbbf24,#ea580c,#fbbf24,transparent);"></div>
     <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
         <div style="font-size:9px;color:rgba(251,191,36,.55);letter-spacing:4px;font-weight:600;">✦ 官方彩票资讯平台 ✦</div>

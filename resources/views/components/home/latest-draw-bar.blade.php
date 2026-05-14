@@ -7,7 +7,7 @@
         default => 'background:linear-gradient(135deg,#8FC8FF,#3B92ED);',
     };
 @endphp
-<div style="margin-top:10px;border-radius:12px 12px 0 0;overflow:hidden;border-bottom:1px solid rgba(220,38,38,.2);background:linear-gradient(180deg,#1a0000,#110000);margin:10px 12px 0;border-radius:12px;border:1px solid rgba(220,38,38,.15);">
+<div style="margin-top:10px;border-radius:12px 12px 0 0;overflow:hidden;border-bottom:1px solid rgba(220,38,38,.13);background:linear-gradient(180deg,#2c2224,#241b1d);margin:10px 12px 0;border-radius:12px;border:1px solid rgba(220,38,38,.12);">
     @foreach([
         ['label'=> \App\Models\DrawSchedule::where('type','store')->value('type_label') ?? '澳彩', 'draw'=>$storeDrawResult],
         ['label'=> \App\Models\DrawSchedule::where('type','online')->value('type_label') ?? '港彩', 'draw'=>$onlineDrawResult],

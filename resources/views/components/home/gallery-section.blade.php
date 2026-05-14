@@ -109,9 +109,9 @@
 .gallery-item-inner {
     border-radius: 14px;
     overflow: hidden;
-    background: linear-gradient(180deg,#1a0500,#0d0000);
-    border: 1px solid rgba(220,38,38,.22);
-    box-shadow: 0 3px 14px rgba(0,0,0,.5);
+    background: linear-gradient(180deg,#2c2224,#241b1d);
+    border: 1px solid rgba(220,38,38,.14);
+    box-shadow: 0 3px 10px rgba(0,0,0,.32);
     transition: opacity .15s, transform .15s;
 }
 .gallery-item-inner:active {

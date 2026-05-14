@@ -9,9 +9,9 @@
 /* ── 带图卡片 ── */
 .pc-img {
     display:block; border-radius:14px; margin-bottom:8px; overflow:hidden;
-    border:1px solid rgba(220,38,38,.2);
-    background:#150000;
-    box-shadow:0 2px 16px rgba(0,0,0,.45);
+    border:1px solid rgba(220,38,38,.14);
+    background:#2a2123;
+    box-shadow:0 2px 12px rgba(0,0,0,.3);
     -webkit-tap-highlight-color:transparent;
     transition:opacity .15s;
     text-decoration:none;
@@ -43,8 +43,8 @@
 /* 纯标题列表容器 */
 .pc-list {
     border-radius:12px; overflow:hidden;
-    border:1px solid rgba(220,38,38,.15);
-    background:linear-gradient(180deg,#180000,#100000);
+    border:1px solid rgba(220,38,38,.1);
+    background:linear-gradient(180deg,#2e2426,#251c1e);
     margin-bottom:8px;
     padding:4px 0;
 }

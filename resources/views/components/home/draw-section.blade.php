@@ -31,11 +31,11 @@
         </div>
     </div>
 
-    <div style="border-radius:20px;overflow:hidden;border:1px solid rgba(220,38,38,.35);
-                animation:draw-outer-glow 3s ease-in-out infinite;background:#1a0000;">
+    <div style="border-radius:20px;overflow:hidden;border:1px solid rgba(220,38,38,.22);
+                animation:draw-outer-glow 3s ease-in-out infinite;background:#2a2123;">
 
         <div style="display:flex;padding:10px 10px 0;gap:8px;
-                    background:linear-gradient(180deg,#250000,#1a0000);">
+                    background:linear-gradient(180deg,#372a2c,#2a2123);">
             <button id="tab-store" onclick="dswitchTab('store')"
                     style="flex:1;padding:10px 0;border-radius:12px;border:none;cursor:pointer;
                            font-size:13px;font-weight:800;transition:all .2s;

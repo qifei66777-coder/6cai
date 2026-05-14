@@ -38,19 +38,19 @@
 .ball-plus{font-size:clamp(13px,3.5vw,17px);font-weight:900;color:rgba(251,191,36,.5);flex-shrink:0;line-height:1;margin-bottom:clamp(14px,4.5vw,22px);}
 .ball-label{font-size:clamp(8px,2.3vw,10px);color:rgba(255,255,255,.65);text-align:center;line-height:1.2;white-space:nowrap;font-weight:500;}
 .ball-label-special{color:rgba(255,210,80,.9);font-weight:700;}
-.countdown-box{background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.25);border-radius:12px;padding:10px 14px;text-align:center;}
+.countdown-box{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.18);border-radius:12px;padding:10px 14px;text-align:center;}
 .countdown-labels{display:flex;justify-content:center;gap:4px;margin-top:3px;}
 .countdown-lbl{font-size:9px;color:rgba(251,191,36,.4);min-width:2ch;text-align:center;}
 </style>
 @endonce
 
 <div style="margin:10px 10px 8px;border-radius:18px;overflow:hidden;
-            border:1px solid rgba(220,38,38,.2);
-            background:linear-gradient(180deg,#200505,#150000);">
+            border:1px solid rgba(220,38,38,.14);
+            background:linear-gradient(180deg,#322428,#26191c);">
 
     {{-- 卡片头 --}}
-    <div style="padding:12px 14px 10px;background:linear-gradient(135deg,#2d0808,#1a0000);
-                border-bottom:1px solid rgba(220,38,38,.15);
+    <div style="padding:12px 14px 10px;background:linear-gradient(135deg,#3d2a2d,#2a1f22);
+                border-bottom:1px solid rgba(220,38,38,.12);
                 display:flex;align-items:flex-start;justify-content:space-between;">
         <div>
             <div style="display:flex;align-items:baseline;gap:5px;">
@@ -96,7 +96,7 @@
     </div>
 
     {{-- 球区 --}}
-    <div style="padding:16px 6px;background:linear-gradient(160deg,#0d0000,#060000);">
+    <div style="padding:16px 6px;background:linear-gradient(160deg,#241a1c,#1c1416);">
         @if($isCompleted || ($isDrawing && $draw->drawNumbers->count() > 0))
             <div class="balls-row">
                 @foreach($draw->drawNumbers as $num)

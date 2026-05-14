@@ -21,21 +21,21 @@
     <style>
         :root {
             --red:    #dc2626;
-            --red-dk: #991b1b;
-            --red-xd: #7f1d1d;
+            --red-dk: #b91c1c;
+            --red-xd: #991b1b;
             --orange: #ea580c;
             --gold:   #fbbf24;
-            --bg:     #0d0000;
+            --bg:     #211a1c;
         }
         * { -webkit-tap-highlight-color:transparent; box-sizing:border-box; }
         body {
-            background:#0d0000;
+            background:#211a1c;
             font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;
             scroll-behavior:smooth;
         }
         .mobile-container {
             max-width:480px; margin:0 auto; min-height:100vh;
-            background:linear-gradient(160deg,#130000 0%,#0a0000 40%,#150500 100%);
+            background:linear-gradient(160deg,#2a2123 0%,#1f1819 40%,#28201f 100%);
         }
         .safe-bottom { padding-bottom:env(safe-area-inset-bottom,0); }
 
@@ -73,8 +73,8 @@
         .section-subtitle-text { font-size:11px;color:rgba(255,255,255,.45);margin-top:1px; }
 
         @keyframes draw-outer-glow {
-            0%,100% { box-shadow:0 0 20px rgba(220,38,38,.5),0 0 60px rgba(234,88,12,.2); }
-            50%      { box-shadow:0 0 35px rgba(220,38,38,.75),0 0 80px rgba(234,88,12,.35); }
+            0%,100% { box-shadow:0 0 14px rgba(220,38,38,.28),0 0 40px rgba(234,88,12,.12); }
+            50%      { box-shadow:0 0 22px rgba(220,38,38,.42),0 0 55px rgba(234,88,12,.2); }
         }
         @keyframes fire-flicker { 0%,100%{opacity:1;transform:scaleY(1);}50%{opacity:.8;transform:scaleY(1.08) rotate(2deg);} }
         @keyframes pulse-hot    { 0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.6);}50%{box-shadow:0 0 0 8px rgba(220,38,38,0);} }
@@ -86,13 +86,13 @@
 
     {{-- 顶部 Header --}}
     <header class="sticky top-0 z-50 px-4 py-2 flex items-center justify-between"
-            style="background:linear-gradient(135deg,#1a0000 0%,#3d0000 50%,#1a0000 100%);
-                   box-shadow:0 2px 12px rgba(220,38,38,.35),0 1px 0 rgba(220,38,38,.2);">
+            style="background:linear-gradient(135deg,#2d2426 0%,#4a2c2e 50%,#2d2426 100%);
+                   box-shadow:0 2px 10px rgba(220,38,38,.18),0 1px 0 rgba(220,38,38,.12);">
         <div class="flex items-center gap-2.5">
             <div style="width:40px;height:40px;border-radius:12px;flex-shrink:0;overflow:hidden;
-                        background:linear-gradient(135deg,#2d0000,#5a0000);
-                        border:1px solid rgba(220,38,38,.5);
-                        box-shadow:0 2px 12px rgba(220,38,38,.45);">
+                        background:linear-gradient(135deg,#3d2c2e,#6a3535);
+                        border:1px solid rgba(220,38,38,.32);
+                        box-shadow:0 2px 10px rgba(220,38,38,.25);">
                 <img src="/images/logo.png" alt="Logo"
                      style="width:100%;height:100%;object-fit:contain;
                             filter:hue-rotate(240deg) saturate(1.6) brightness(1.15);"
@@ -135,9 +135,9 @@
 
     {{-- 底部导航 --}}
     <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-mobile safe-bottom z-40"
-         style="background:linear-gradient(180deg,#1a0000,#0d0000);
-                border-top:1px solid rgba(220,38,38,.2);
-                box-shadow:0 -4px 20px rgba(0,0,0,.5);">
+         style="background:linear-gradient(180deg,#2a2122,#211a1c);
+                border-top:1px solid rgba(220,38,38,.15);
+                box-shadow:0 -4px 16px rgba(0,0,0,.35);">
         <div class="flex">
             <a href="{{ route('home') }}" onclick="scrollToTop(event,this)" class="nav-item {{ request()->routeIs('home') && !request()->has('_') ? 'active' : '' }}" data-section="top">
                 <svg class="w-6 h-6" viewBox="0 0 24 24"
