@@ -14,10 +14,12 @@
     {{-- 跑马灯滚动文字 --}}
     <div class="mq-track">
         <div class="mq-inner">
-            <span class="mq-text">{{ $marqueeText }}</span>
-            <span class="mq-sep">✦</span>
-            <span class="mq-text">{{ $marqueeText }}</span>
-            <span class="mq-sep">✦</span>
+            <span class="mq-text" data-text="{{ $marqueeText }}">{{ $marqueeText }}</span>
+            <span class="mq-sep mq-sep-1">💎</span>
+            <span class="mq-text" data-text="{{ $marqueeText }}">{{ $marqueeText }}</span>
+            <span class="mq-sep mq-sep-2">✨</span>
+            <span class="mq-text" data-text="{{ $marqueeText }}">{{ $marqueeText }}</span>
+            <span class="mq-sep mq-sep-3">🎰</span>
         </div>
     </div>
 
@@ -101,35 +103,89 @@
 .mq-inner {
     display: inline-flex;
     align-items: center;
-    gap: 30px;
+    gap: clamp(20px, 6vw, 36px);
     white-space: nowrap;
-    color: #fff;
-    font-size: clamp(13px, 3.8vw, 15px);
-    font-weight: 700;
+    font-size: clamp(13px, 3.9vw, 16px);
+    font-weight: 900;
     padding-left: 100%;
-    animation: mq-scroll 25s linear infinite;
+    animation: mq-scroll 28s linear infinite;
     will-change: transform;
-    text-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
 .mq-inner:hover { animation-play-state: paused; }
 @keyframes mq-scroll {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-100%); }
 }
+
+/* ★ 滚动文字特效 — 金色流光 + 光晕 + 呼吸 ★ */
 .mq-text {
     flex-shrink: 0;
-    letter-spacing: .5px;
+    letter-spacing: 1.2px;
+    position: relative;
+    /* 金色到白色再到金色的渐变 */
+    background: linear-gradient(90deg,
+        #fff8dc 0%,
+        #fbbf24 15%,
+        #fde68a 30%,
+        #ffffff 45%,
+        #fde68a 60%,
+        #fbbf24 75%,
+        #fff8dc 100%
+    );
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    /* 流光效果：渐变从右往左扫过文字 */
+    animation:
+        mq-text-shine 3s linear infinite,
+        mq-text-breath 2s ease-in-out infinite;
+    /* 多层光晕 */
+    filter:
+        drop-shadow(0 0 4px rgba(251,191,36,.6))
+        drop-shadow(0 0 8px rgba(255,200,80,.35))
+        drop-shadow(0 1px 2px rgba(0,0,0,.55));
 }
+@keyframes mq-text-shine {
+    0%   { background-position: 250% center; }
+    100% { background-position: 0% center; }
+}
+@keyframes mq-text-breath {
+    0%,100% { filter:
+                drop-shadow(0 0 4px rgba(251,191,36,.6))
+                drop-shadow(0 0 8px rgba(255,200,80,.35))
+                drop-shadow(0 1px 2px rgba(0,0,0,.55)); }
+    50%     { filter:
+                drop-shadow(0 0 7px rgba(251,191,36,.95))
+                drop-shadow(0 0 14px rgba(255,200,80,.6))
+                drop-shadow(0 1px 2px rgba(0,0,0,.55)); }
+}
+
+/* ★ Emoji 分隔符 — 旋转 + 缩放 + 不同延迟 ★ */
 .mq-sep {
     flex-shrink: 0;
-    color: #fbbf24;
-    font-size: 14px;
-    opacity: .85;
-    animation: mq-spin 3s linear infinite;
+    font-size: clamp(15px, 4.2vw, 18px);
+    filter: drop-shadow(0 0 6px rgba(251,191,36,.7));
+    display: inline-block;
 }
-@keyframes mq-spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+.mq-sep-1 { animation: mq-sep-bounce 2.5s ease-in-out infinite; }
+.mq-sep-2 { animation: mq-sep-spin 2s linear infinite; }
+.mq-sep-3 { animation: mq-sep-shake 1.8s ease-in-out infinite; }
+@keyframes mq-sep-bounce {
+    0%,100% { transform: scale(1) translateY(0); }
+    50%     { transform: scale(1.3) translateY(-2px); }
+}
+@keyframes mq-sep-spin {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes mq-sep-shake {
+    0%,100% { transform: rotate(-10deg) scale(1); }
+    25%     { transform: rotate(12deg) scale(1.15); }
+    50%     { transform: rotate(-8deg) scale(1); }
+    75%     { transform: rotate(10deg) scale(1.1); }
 }
 
 /* 右侧渐隐遮罩 */
