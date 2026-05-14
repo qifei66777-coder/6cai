@@ -1,4 +1,8 @@
 {{-- 开奖结果模块 ── 红橙金主题 --}}
+@php
+    $storeLabel  = \App\Models\DrawSchedule::where('type','store')->value('type_label')  ?? '澳彩';
+    $onlineLabel = \App\Models\DrawSchedule::where('type','online')->value('type_label') ?? '港彩';
+@endphp
 <div id="draw-section" class="px-3 pt-4">
 
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
@@ -37,7 +41,7 @@
                            font-size:13px;font-weight:800;transition:all .2s;
                            background:linear-gradient(135deg,#fbbf24,#ea580c,#dc2626);
                            color:#fff;box-shadow:0 3px 12px rgba(220,38,38,.55);">
-                <span style="display:block;line-height:1.2;">🎰 澳彩</span>
+                <span style="display:block;line-height:1.2;">🎰 {{ $storeLabel }}</span>
                 @if($storeDrawResult)
                     <span style="display:block;font-size:9px;font-weight:400;opacity:.85;margin-top:2px;">
                         {{ $storeDrawResult->draw_date?->format('m月d日') }}
@@ -48,7 +52,7 @@
                     style="flex:1;padding:10px 0;border-radius:12px;border:none;cursor:pointer;
                            font-size:13px;font-weight:800;transition:all .2s;
                            background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);">
-                <span style="display:block;line-height:1.2;">🎲 港彩</span>
+                <span style="display:block;line-height:1.2;">🎲 {{ $onlineLabel }}</span>
                 @if($onlineDrawResult)
                     <span style="display:block;font-size:9px;font-weight:400;opacity:.7;margin-top:2px;">
                         {{ $onlineDrawResult->draw_date?->format('m月d日') }}
@@ -67,7 +71,7 @@
                     <svg style="width:36px;height:36px;opacity:.3;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span style="font-size:12px;">暂无澳彩开奖数据</span>
+                    <span style="font-size:12px;">暂无{{ $storeLabel }}开奖数据</span>
                 </div>
             @endif
         </div>
@@ -79,7 +83,7 @@
                     <svg style="width:36px;height:36px;opacity:.3;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <span style="font-size:12px;">暂无港彩开奖数据</span>
+                    <span style="font-size:12px;">暂无{{ $onlineLabel }}开奖数据</span>
                 </div>
             @endif
         </div>

@@ -115,6 +115,7 @@ class DrawResultResource extends Resource
                     ])
                     ->columns(1)
                     ->addActionLabel('+ 添加号码')
+                    ->maxItems(7)
                     ->reorderable('sort_order')
                     ->collapsible()
                     ->defaultItems(0),
