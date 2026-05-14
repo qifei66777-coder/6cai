@@ -41,8 +41,17 @@ class PostResource extends Resource
                     ->columnSpanFull(),
 
                 Select::make('tag')
-                    ->label('标签')
-                    ->options([''=> '无','置顶'=>'置顶','公告'=>'公告'])
+                    ->label('分类标签')
+                    ->options([
+                        ''         => '无',
+                        '开奖资讯' => '开奖资讯',
+                        '号码分析' => '号码分析',
+                        '生肖解读' => '生肖解读',
+                        '走势图表' => '走势图表',
+                        '技巧心得' => '技巧心得',
+                        '特别公告' => '特别公告',
+                        '置顶'     => '置顶',
+                    ])
                     ->default('')
                     ->nullable(),
 

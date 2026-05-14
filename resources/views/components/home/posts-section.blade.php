@@ -85,9 +85,7 @@
         $coverUrl = $post->cover_image
                         ? Storage::disk('public')->url($post->cover_image)
                         : null;
-        $catName  = $post->category
-                        ? (is_string($post->category) ? $post->category : ($post->category->name ?? ''))
-                        : '';
+        $catName  = $post->tag ?? '';
         $dateStr  = $post->published_at?->format('m-d') ?? $post->created_at->format('m-d');
         $excerpt  = $post->excerpt ?? '';
 
