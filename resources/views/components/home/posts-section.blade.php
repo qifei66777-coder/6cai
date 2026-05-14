@@ -81,7 +81,7 @@
 
     @forelse($posts as $post)
     @php
-        $postUrl  = route('post.show', $post->slug);
+        $postUrl  = route('post.show', $post->id);
         $coverUrl = $post->cover_image
                         ? Storage::disk('public')->url($post->cover_image)
                         : null;
