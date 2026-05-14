@@ -31,6 +31,7 @@
         body {
             background:#0d0000;
             font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;
+            scroll-behavior:smooth;
         }
         .mobile-container {
             max-width:480px; margin:0 auto; min-height:100vh;
@@ -138,7 +139,7 @@
                 border-top:1px solid rgba(220,38,38,.2);
                 box-shadow:0 -4px 20px rgba(0,0,0,.5);">
         <div class="flex">
-            <a href="{{ route('home') }}" class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+            <a href="{{ route('home') }}" onclick="scrollToTop(event,this)" class="nav-item {{ request()->routeIs('home') && !request()->has('_') ? 'active' : '' }}" data-section="top">
                 <svg class="w-6 h-6" viewBox="0 0 24 24"
                      fill="{{ request()->routeIs('home') ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -146,26 +147,27 @@
                 </svg>
                 <span>首页</span>
             </a>
-            <a href="#draw-section" class="nav-item {{ request()->routeIs('draw*') ? 'active' : '' }}">
+            <a href="#draw-section" onclick="scrollToSection(event,'draw-section',this)" class="nav-item" data-section="draw-section">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12l2 2.5L16 9"/>
                 </svg>
                 <span>开奖</span>
             </a>
-            <a href="#posts-section" class="nav-item {{ request()->routeIs('post*') ? 'active' : '' }}">
+            <a href="#posts-section" onclick="scrollToSection(event,'posts-section',this)" class="nav-item" data-section="posts-section">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                          d="M4 6h16M4 10h16M4 14h10M4 18h8"/>
                 </svg>
-                <span>资讯</span>
+                <span>资料</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="#gallery-section" onclick="scrollToSection(event,'gallery-section',this)" class="nav-item" data-section="gallery-section">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/>
                 </svg>
-                <span>我的</span>
+                <span>图片</span>
             </a>
         </div>
     </nav>
@@ -183,6 +185,50 @@
 function openVideoModal(src){const m=document.getElementById('video-modal'),v=document.getElementById('modal-video');v.src=src;m.classList.add('active');v.play().catch(()=>{});}
 function closeVideoModal(m,e){if(e.target===m)closeVideoModalBtn();}
 function closeVideoModalBtn(){const m=document.getElementById('video-modal'),v=document.getElementById('modal-video');v.pause();v.src='';m.classList.remove('active');}
+
+/* ── 底部导航滚动定位 ── */
+function scrollToSection(e, id, el) {
+    e.preventDefault();
+    var target = document.getElementById(id);
+    if (!target) return;
+    var top = target.getBoundingClientRect().top + window.scrollY - 56; // 56 = header高度
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    setNavActive(el);
+}
+function scrollToTop(e, el) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setNavActive(el);
+}
+function setNavActive(el) {
+    document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+    el.classList.add('active');
+}
+
+/* ── 滚动时自动高亮对应导航 ── */
+(function(){
+    var sections = ['draw-section','posts-section','gallery-section'];
+    var navMap   = {};
+    sections.forEach(function(id){
+        var a = document.querySelector('.nav-item[data-section="'+id+'"]');
+        if(a) navMap[id] = a;
+    });
+    var homeNav = document.querySelector('.nav-item[data-section="top"]');
+
+    function onScroll(){
+        var scrollY = window.scrollY + 80;
+        var active = null;
+        sections.forEach(function(id){
+            var el = document.getElementById(id);
+            if(el && el.offsetTop <= scrollY) active = id;
+        });
+        document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+        if(active && navMap[active]) navMap[active].classList.add('active');
+        else if(homeNav) homeNav.classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+})();
 </script>
 @stack('scripts')
 </body>

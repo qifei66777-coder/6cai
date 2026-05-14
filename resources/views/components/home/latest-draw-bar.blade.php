@@ -7,7 +7,7 @@
         default => 'background:linear-gradient(135deg,#8FC8FF,#3B92ED);',
     };
 @endphp
-<div style="border-bottom:1px solid rgba(220,38,38,.2);background:linear-gradient(180deg,#1a0000,#110000);">
+<div style="margin-top:10px;border-radius:12px 12px 0 0;overflow:hidden;border-bottom:1px solid rgba(220,38,38,.2);background:linear-gradient(180deg,#1a0000,#110000);margin:10px 12px 0;border-radius:12px;border:1px solid rgba(220,38,38,.15);">
     @foreach([['label'=>'澳彩','draw'=>$storeDrawResult],['label'=>'港彩','draw'=>$onlineDrawResult]] as $item)
         @if($item['draw'])
         @php $d=$item['draw']; @endphp

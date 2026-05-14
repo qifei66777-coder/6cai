@@ -1,5 +1,5 @@
 @if($marqueeText)
-<div style="overflow:hidden;display:flex;align-items:center;height:30px;
+<div style="margin-top:8px;overflow:hidden;display:flex;align-items:center;height:30px;
             background:linear-gradient(90deg,#7f1d1d 0%,#dc2626 40%,#ea580c 100%);">
     <div style="flex-shrink:0;display:flex;align-items:center;justify-content:center;
                 height:100%;padding:0 12px;background:rgba(0,0,0,.25);">
