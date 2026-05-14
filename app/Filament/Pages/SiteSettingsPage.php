@@ -5,7 +5,6 @@ namespace App\Filament\Pages;
 use App\Models\SiteSetting;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Schema;
@@ -14,12 +13,12 @@ class SiteSettingsPage extends Page
 {
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-cog-6-tooth';
     protected static \UnitEnum|string|null $navigationGroup = '系统设置';
     protected static ?string $navigationLabel = '网站设置';
     protected static ?string $title = '网站设置';
     protected static ?int $navigationSort = 20;
-    protected static string $view = 'filament.pages.site-settings';
+    protected string $view = 'filament.pages.site-settings';
 
     public ?array $data = [];
 
