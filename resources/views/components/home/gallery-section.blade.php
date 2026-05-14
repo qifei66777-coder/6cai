@@ -25,10 +25,14 @@
                     <div class="gallery-item-inner">
                         <img src="{{ $imgUrl }}"
                              alt="{{ $img->title ?? '' }}"
-                             class="w-full h-auto block"
                              loading="lazy">
                         @if($img->title)
-                            <div class="gallery-item-caption">{{ $img->title }}</div>
+                            <div class="gallery-item-caption">
+                                <span class="gallery-item-caption-text">{{ $img->title }}</span>
+                                <svg class="gallery-item-caption-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-4.35-4.35M11 17a6 6 0 100-12 6 6 0 000 12z"/>
+                                </svg>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -66,36 +70,69 @@
 </div>
 
 <style>
-/* 单列布局 */
+/* 单列卡片布局 */
 .gallery-masonry {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 .gallery-item {
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 .gallery-item-inner {
-    border-radius: 10px;
+    border-radius: 14px;
     overflow: hidden;
-    background: #e5e7eb;
+    background: linear-gradient(180deg,#1a0500,#0d0000);
+    border: 1px solid rgba(220,38,38,.22);
+    box-shadow: 0 3px 14px rgba(0,0,0,.5);
     transition: opacity .15s, transform .15s;
-    position: relative;
 }
 .gallery-item-inner:active {
-    opacity: .85;
-    transform: scale(.98);
+    opacity: .9;
+    transform: scale(.99);
 }
+.gallery-item-inner img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* 标题区 - 卡片下方独立带左金色竖线 */
 .gallery-item-caption {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 4px 6px;
-    font-size: 10px;
-    color: #fff;
-    background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 13px;
+    border-top: 1px solid rgba(220,38,38,.12);
+    background: linear-gradient(180deg,rgba(220,38,38,.04),rgba(220,38,38,.10));
+}
+.gallery-item-caption::before {
+    content: '';
+    flex-shrink: 0;
+    width: 3px;
+    height: clamp(14px, 4vw, 18px);
+    background: linear-gradient(180deg,#fbbf24,#ea580c,#dc2626);
+    border-radius: 3px;
+    box-shadow: 0 0 6px rgba(251,191,36,.4);
+}
+.gallery-item-caption-text {
+    flex: 1;
+    min-width: 0;
+    font-size: clamp(13px, 3.6vw, 15px);
+    font-weight: 700;
+    color: rgba(255,255,255,.92);
+    line-height: 1.4;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    letter-spacing: .3px;
+}
+.gallery-item-caption-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: rgba(251,191,36,.55);
 }
 </style>
 
