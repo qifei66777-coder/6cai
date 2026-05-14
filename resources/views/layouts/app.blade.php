@@ -177,7 +177,7 @@
     <div class="relative w-full mx-4" style="max-width:460px">
         <button onclick="closeVideoModalBtn()"
                 class="absolute -top-10 right-0 text-white text-3xl leading-none w-10 h-10 flex items-center justify-center">&times;</button>
-        <video id="modal-video" controls playsinline class="w-full rounded-2xl bg-black"
+        <video id="modal-video" controls playsinline preload="metadata" webkit-playsinline class="w-full rounded-2xl bg-black"
                style="max-height:65vh;box-shadow:0 20px 60px rgba(0,0,0,.6);"></video>
     </div>
 </div>
