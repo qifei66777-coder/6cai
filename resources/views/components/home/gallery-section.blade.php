@@ -53,20 +53,46 @@
 {{-- Lightbox 全屏预览 --}}
 <div id="gallery-lightbox"
      onclick="closeGalleryLightbox(event)"
-     style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.94);
+     style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.95);
             align-items:center;justify-content:center;flex-direction:column;touch-action:none;">
+
+    {{-- 关闭按钮（右上，固定在视口） --}}
     <button onclick="closeGalleryLightboxBtn()"
-            style="position:absolute;top:16px;right:16px;color:#fff;font-size:28px;
-                   line-height:1;background:rgba(255,255,255,.15);border:none;cursor:pointer;
-                   width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            aria-label="关闭"
+            style="position:fixed;top:max(16px,env(safe-area-inset-top,16px));right:16px;
+                   width:44px;height:44px;border-radius:50%;
+                   background:linear-gradient(135deg,#fbbf24,#ea580c,#dc2626);
+                   border:2px solid rgba(255,255,255,.8);
+                   color:#fff;font-size:24px;font-weight:900;line-height:1;
+                   display:flex;align-items:center;justify-content:center;
+                   cursor:pointer;z-index:100000;
+                   box-shadow:0 4px 16px rgba(220,38,38,.7),0 0 0 4px rgba(0,0,0,.4);
+                   -webkit-tap-highlight-color:transparent;">
         &times;
     </button>
+
+    {{-- 顶部安全条提示 --}}
+    <div style="position:fixed;top:max(20px,env(safe-area-inset-top,20px));left:16px;
+                color:rgba(251,191,36,.7);font-size:11px;font-weight:600;letter-spacing:1px;
+                background:rgba(0,0,0,.45);padding:6px 12px;border-radius:20px;
+                border:1px solid rgba(251,191,36,.25);z-index:100000;">
+        🔍 图片预览
+    </div>
+
     <img id="gallery-lb-img" src="" alt=""
-         style="max-width:94vw;max-height:80vh;object-fit:contain;border-radius:10px;
-                box-shadow:0 20px 60px rgba(0,0,0,.6);">
+         style="max-width:94vw;max-height:78vh;object-fit:contain;border-radius:10px;
+                box-shadow:0 20px 60px rgba(0,0,0,.7);">
     <p id="gallery-lb-caption"
-       style="color:rgba(255,255,255,.6);font-size:12px;margin-top:12px;
-              text-align:center;padding:0 20px;max-width:90vw;"></p>
+       style="color:rgba(255,255,255,.85);font-size:14px;font-weight:600;margin-top:16px;
+              text-align:center;padding:0 24px;max-width:90vw;
+              text-shadow:0 1px 6px rgba(0,0,0,.7);"></p>
+
+    {{-- 底部点击空白处关闭提示 --}}
+    <div style="position:fixed;bottom:max(20px,env(safe-area-inset-bottom,20px));left:50%;
+                transform:translateX(-50%);color:rgba(255,255,255,.45);font-size:11px;
+                z-index:100000;">
+        点击空白处关闭
+    </div>
 </div>
 
 <style>
