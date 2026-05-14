@@ -41,7 +41,7 @@
                            font-size:13px;font-weight:800;transition:all .2s;
                            background:linear-gradient(135deg,#fbbf24,#ea580c,#dc2626);
                            color:#fff;box-shadow:0 3px 12px rgba(220,38,38,.55);">
-                <span style="display:block;line-height:1.2;">🎰 {{ $storeLabel }}</span>
+                <span style="display:block;line-height:1.2;">🇸🇬 {{ $storeLabel }}</span>
                 @if($storeDrawResult)
                     <span style="display:block;font-size:9px;font-weight:400;opacity:.85;margin-top:2px;">
                         {{ $storeDrawResult->draw_date?->format('m月d日') }}
@@ -52,7 +52,7 @@
                     style="flex:1;padding:10px 0;border-radius:12px;border:none;cursor:pointer;
                            font-size:13px;font-weight:800;transition:all .2s;
                            background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);">
-                <span style="display:block;line-height:1.2;">🎲 {{ $onlineLabel }}</span>
+                <span style="display:block;line-height:1.2;">🇲🇾 {{ $onlineLabel }}</span>
                 @if($onlineDrawResult)
                     <span style="display:block;font-size:9px;font-weight:400;opacity:.7;margin-top:2px;">
                         {{ $onlineDrawResult->draw_date?->format('m月d日') }}
