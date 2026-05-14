@@ -1,4 +1,4 @@
-{{-- 帖子列表模块（图文交替：1带图+5纯标题 循环） --}}
+{{-- 帖子列表模块（按是否有封面图智能切换：有图=大图卡 / 无图=纯标题，连续无图自动合并成列表） --}}
 @php
     $sectionTitle    = $section?->title    ?: '最新资讯';
     $sectionSubtitle = $section?->subtitle ?: '开奖动态与彩票资讯';
@@ -79,46 +79,30 @@
         </a>
     </div>
 
+    @php $textListOpen = false; @endphp
+
     @forelse($posts as $post)
     @php
-        $postUrl  = route('post.show', $post->id);
-        $coverUrl = $post->cover_image
-                        ? Storage::disk('public')->url($post->cover_image)
-                        : null;
-        $catName  = $post->tag ?? '';
-        $dateStr  = $post->published_at?->format('m-d') ?? $post->created_at->format('m-d');
-        $excerpt  = $post->excerpt ?? '';
-
-        // 确定此帖在分组中的角色
-        // 分组规则：第0位=带图，第1-5位=纯标题（共6一组）
-        $groupPos = $loop->index % 6;   // 0 = 带图，1~5 = 纯标题
-        $isImgCard = ($groupPos === 0);
-
-        // 带图占位
-        if ($isImgCard && !$coverUrl) {
-            $seed = intdiv($loop->index, 6) + 10;
-            $coverUrl = "https://picsum.photos/seed/{$seed}/800/400";
-        }
-
-        // 纯标题列表：收集连续的纯标题帖子，在第一篇时统一渲染
-        // 用辅助变量判断是否需要开/关 <div class="pc-list">
-        $isFirstTextInGroup = ($groupPos === 1);
-        $isLastTextInGroup  = ($groupPos === 5) || $loop->last;
+        $postUrl   = route('post.show', $post->id);
+        $hasCover  = !empty($post->cover_image);
+        $coverUrl  = $hasCover ? Storage::disk('public')->url($post->cover_image) : null;
+        $catName   = $post->tag ?? '';
+        $dateStr   = $post->published_at?->format('m-d') ?? $post->created_at->format('m-d');
     @endphp
 
-    @if($isImgCard)
+    @if($hasCover)
+        {{-- 遇到带图帖子：先关闭可能开着的列表 --}}
+        @if($textListOpen)</div>@php $textListOpen = false; @endphp @endif
+
         {{-- ═══════════════════════════
-             带图卡片（每组第1篇）
+             带图卡片
              ═══════════════════════════ --}}
         <a href="{{ $postUrl }}" class="pc-img">
-            {{-- 顶部图片 --}}
             <div style="width:100%;height:155px;position:relative;overflow:hidden;">
                 <img src="{{ $coverUrl }}" alt="{{ $post->title }}"
                      style="width:100%;height:100%;object-fit:cover;display:block;">
-                {{-- 渐变遮罩 --}}
                 <div style="position:absolute;inset:0;
                             background:linear-gradient(to top,rgba(10,0,0,.85) 0%,rgba(10,0,0,.3) 50%,transparent 100%);"></div>
-                {{-- 分类角标 --}}
                 @if($catName)
                     <span style="position:absolute;top:10px;left:10px;
                                  font-size:9px;font-weight:800;color:#1a0000;
@@ -127,7 +111,6 @@
                         {{ $catName }}
                     </span>
                 @endif
-                {{-- 标题覆盖 --}}
                 <div style="position:absolute;bottom:10px;left:12px;right:12px;">
                     <div class="pc-title-2"
                          style="font-size:15px;font-weight:800;color:#fff;line-height:1.35;
@@ -150,18 +133,11 @@
         </a>
 
     @else
-        {{-- ═══════════════════════════
-             纯标题列表（每组第2-6篇）
-             ═══════════════════════════ --}}
-
-        {{-- 列表容器开始 --}}
-        @if($isFirstTextInGroup)<div class="pc-list">@endif
+        {{-- 遇到无图帖子：如未开列表则开启 --}}
+        @if(!$textListOpen)<div class="pc-list">@php $textListOpen = true; @endphp @endif
 
         <a href="{{ $postUrl }}" class="pc-text">
-            {{-- 左竖线 --}}
             <div class="pc-text-accent"></div>
-
-            {{-- 标题 --}}
             <div style="flex:1;min-width:0;">
                 <div class="pc-title-1"
                      style="font-size:13px;font-weight:600;color:rgba(255,255,255,.85);line-height:1.4;">
@@ -176,17 +152,14 @@
                     </div>
                 @endif
             </div>
-
-            {{-- 右箭头 --}}
             <svg style="width:12px;height:12px;flex-shrink:0;color:rgba(220,38,38,.35);margin-left:8px;"
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
             </svg>
         </a>
 
-        {{-- 列表容器结束 --}}
-        @if($isLastTextInGroup)</div>@endif
-
+        {{-- 如果是最后一篇且列表还开着，关闭 --}}
+        @if($loop->last && $textListOpen)</div>@php $textListOpen = false; @endphp @endif
     @endif
 
     @empty
@@ -200,4 +173,7 @@
         <span style="font-size:13px;color:rgba(255,255,255,.2);">暂无资讯</span>
     </div>
     @endforelse
+
+    {{-- 兜底：如循环结束后列表还开着 --}}
+    @if($textListOpen ?? false)</div>@endif
 </div>

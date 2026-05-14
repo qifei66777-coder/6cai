@@ -26,11 +26,7 @@ class DrawResult extends Model
 
     public function getTypeLabel(): string
     {
-        static $cache = [];
-        if (!isset($cache[$this->type])) {
-            $cache[$this->type] = DrawSchedule::where('type', $this->type)->value('type_label') ?? $this->type;
-        }
-        return $cache[$this->type];
+        return DrawSchedule::where('type', $this->type)->value('type_label') ?? $this->type;
     }
 
     public function getStatusLabel(): string
