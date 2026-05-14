@@ -3,8 +3,21 @@
 @section('title', '开奖信息首页')
 
 @section('content')
-    <div class="pt-1 pb-4">
+    {{-- 最新开奖快览条 --}}
+    @include('components.home.latest-draw-bar')
+
+    {{-- 跑马灯公告 --}}
+    @include('components.home.marquee-bar')
+
+    {{-- Banner 轮播 --}}
+    @include('components.home.banner-carousel')
+
+    <div class="pb-6">
+        @php $sectionIndex = 0; @endphp
+
         @foreach($sections as $section)
+            @php $sectionIndex++; @endphp
+
             @switch($section->section_key)
                 @case('draw')
                     @include('components.home.draw-section')
@@ -16,12 +29,20 @@
                     @include('components.home.gallery-section', ['section' => $section])
                     @break
             @endswitch
+
+            {{-- draw 板块之后插入宣传条2 --}}
+            @if($section->section_key === 'draw')
+                @include('components.home.site-promo-banner', ['variant' => 2])
+            @endif
+
+            {{-- posts 板块之后插入宣传条3 --}}
+            @if($section->section_key === 'posts')
+                @include('components.home.site-promo-banner', ['variant' => 3])
+            @endif
+
         @endforeach
 
-        @if($sections->isEmpty())
-            <div class="text-center py-20 text-gray-400 text-sm">
-                后台尚未配置首页模块，请登录后台进行设置。
-            </div>
-        @endif
+        {{-- 推广链接区 --}}
+        @include('components.home.promo-links')
     </div>
 @endsection

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\DrawResult;
 use App\Models\GalleryImage;
 use App\Models\HomepageSection;
 use App\Models\Post;
+use App\Models\PromoLink;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -44,12 +47,25 @@ class HomeController extends Controller
             ->limit($galleryLimit)
             ->get();
 
+        $banners = Banner::where('is_enabled', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        $promoLinks = PromoLink::where('is_enabled', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        $marqueeText = SiteSetting::get('marquee_text');
+
         return view('home', compact(
             'sections',
             'storeDrawResult',
             'onlineDrawResult',
             'posts',
-            'galleryImages'
+            'galleryImages',
+            'banners',
+            'promoLinks',
+            'marqueeText'
         ));
     }
 }

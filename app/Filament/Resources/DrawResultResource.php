@@ -98,6 +98,15 @@ class DrawResultResource extends Resource
                             ->label('号码')
                             ->required()
                             ->maxLength(4)
+                            ->live()
+                            ->afterStateUpdated(function ($state, \Filament\Schemas\Components\Utilities\Set $set) {
+                                if (is_numeric($state) && $state >= 1 && $state <= 49) {
+                                    $set('color', \App\Helpers\LotteryHelper::getColor((int)$state));
+                                }
+                            })
+                            ->helperText(fn($state) => (is_numeric($state) && $state >= 1 && $state <= 49)
+                                ? '🔮 ' . \App\Helpers\LotteryHelper::getLabel((int)$state)
+                                : '')
                             ->columnSpan(1),
                         Select::make('color')
                             ->label('颜色')
@@ -122,7 +131,11 @@ class DrawResultResource extends Resource
             Section::make('特别号码配置')->schema([
                 TextInput::make('special_number')
                     ->label('特别号码')
-                    ->maxLength(4),
+                    ->maxLength(4)
+                    ->live()
+                    ->helperText(fn($state) => (is_numeric($state) && $state >= 1 && $state <= 49)
+                        ? '🔮 ' . \App\Helpers\LotteryHelper::getLabel((int)$state)
+                        : ''),
                 Select::make('special_color')
                     ->label('特别号码颜色')
                     ->options(['red'=>'红色','blue'=>'蓝色','green'=>'绿色'])
