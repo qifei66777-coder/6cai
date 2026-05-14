@@ -8,7 +8,10 @@
     };
 @endphp
 <div style="margin-top:10px;border-radius:12px 12px 0 0;overflow:hidden;border-bottom:1px solid rgba(220,38,38,.2);background:linear-gradient(180deg,#1a0000,#110000);margin:10px 12px 0;border-radius:12px;border:1px solid rgba(220,38,38,.15);">
-    @foreach([['label'=>'澳彩','draw'=>$storeDrawResult],['label'=>'港彩','draw'=>$onlineDrawResult]] as $item)
+    @foreach([
+        ['label'=> \App\Models\DrawSchedule::where('type','store')->value('type_label') ?? '澳彩', 'draw'=>$storeDrawResult],
+        ['label'=> \App\Models\DrawSchedule::where('type','online')->value('type_label') ?? '港彩', 'draw'=>$onlineDrawResult],
+    ] as $item)
         @if($item['draw'])
         @php $d=$item['draw']; @endphp
         <div style="display:flex;align-items:center;gap:8px;padding:0 12px;height:36px;border-bottom:1px solid rgba(255,255,255,.04);">

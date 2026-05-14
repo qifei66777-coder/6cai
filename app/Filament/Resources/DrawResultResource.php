@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DrawResultResource\Pages;
 use App\Models\DrawResult;
+use App\Models\DrawSchedule;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
@@ -38,7 +39,7 @@ class DrawResultResource extends Resource
             Section::make('基础信息')->schema([
                 Select::make('type')
                     ->label('开奖类型')
-                    ->options(['store' => '澳彩', 'online' => '港彩'])
+                    ->options(fn() => DrawSchedule::pluck('type_label', 'type')->toArray())
                     ->required()
                     ->default('store')
                     ->live(),
@@ -167,11 +168,7 @@ class DrawResultResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('type')
                     ->label('类型')
-                    ->formatStateUsing(fn($state) => match($state) {
-                        'store'  => '澳彩',
-                        'online' => '港彩',
-                        default  => $state,
-                    })
+                    ->formatStateUsing(fn($state) => DrawSchedule::where('type', $state)->value('type_label') ?? $state)
                     ->badge()
                     ->color(fn($state) => $state === 'store' ? 'success' : 'info'),
 
@@ -226,7 +223,7 @@ class DrawResultResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
                     ->label('开奖类型')
-                    ->options(['store'=>'澳彩','online'=>'港彩']),
+                    ->options(fn() => DrawSchedule::pluck('type_label', 'type')->toArray()),
                 Tables\Filters\SelectFilter::make('status')
                     ->label('状态')
                     ->options(['pending'=>'待开奖','drawing'=>'正在开奖','completed'=>'已开奖']),

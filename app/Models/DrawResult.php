@@ -26,11 +26,11 @@ class DrawResult extends Model
 
     public function getTypeLabel(): string
     {
-        return match($this->type) {
-            'store' => '澳彩',
-            'online' => '港彩',
-            default => $this->type,
-        };
+        static $cache = [];
+        if (!isset($cache[$this->type])) {
+            $cache[$this->type] = DrawSchedule::where('type', $this->type)->value('type_label') ?? $this->type;
+        }
+        return $cache[$this->type];
     }
 
     public function getStatusLabel(): string
